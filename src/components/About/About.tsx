@@ -7,7 +7,12 @@ const About = () => {
     return <Outlet />;
   }
 
-  return <p>This is the About page</p>;
+  return (
+    <>
+      <Link to='contact'>Contact</Link>
+      <p>This is the About page</p>
+    </>
+  );
 };
 
 export default About;
