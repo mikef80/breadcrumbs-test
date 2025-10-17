@@ -1,13 +1,15 @@
 import { differenceInYears } from "date-fns";
-import { isRouteErrorResponse, useLoaderData, useRouteError } from "react-router";
+import { Await, isRouteErrorResponse, useLoaderData, useRouteError } from "react-router";
 import { api } from "../../api/client";
+import { Suspense } from "react";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-export const loader = async () => {
+export const loader = () => {
   console.log("Loader called");
 
   try {
-    const { data } = await api.get("/users/1");
-    return data;
+    const dataPromise = api.get("/users/1").then((res) => res.data);
+    return { data: dataPromise };
   } catch (err: any) {
     console.log("Axios error:", err);
     const status = err.response?.status || 500;
@@ -39,17 +41,26 @@ export const ErrorBoundary = () => {
 };
 
 const Contact = () => {
-  const data = useLoaderData();
+  const { data } = useLoaderData();
+  console.log(data);
 
   return (
     <div>
       <h2>Contact Data Returned</h2>
-      <p>Forename: {data.firstName}</p>
-      <p>Surname: {data.lastName}</p>
-      <p>Maiden name: {data.maidenName}</p>
-      <p>DOB: {new Date(data.birthDate).toLocaleDateString("en-GB")}</p>
-      <p>Stated Age: {data.age}</p>
-      <p>Calculated Age: {differenceInYears(new Date(), new Date(data.birthDate))}</p>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Await resolve={data}>
+          {(data) => (
+            <>
+              <p>Forename: {data.firstName}</p>
+              <p>Surname: {data.lastName}</p>
+              <p>Maiden name: {data.maidenName}</p>
+              <p>DOB: {new Date(data.birthDate).toLocaleDateString("en-GB")}</p>
+              <p>Stated Age: {data.age}</p>
+              <p>Calculated Age: {differenceInYears(new Date(), new Date(data.birthDate))}</p>
+            </>
+          )}
+        </Await>
+      </Suspense>
     </div>
   );
 };
