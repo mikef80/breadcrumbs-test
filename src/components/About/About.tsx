@@ -10,6 +10,8 @@ const About = () => {
   return (
     <>
       <Link to='contact'>Contact</Link>
+      <br />
+      <Link to='contact2'>Contact2</Link>
       <p>This is the About page</p>
     </>
   );
