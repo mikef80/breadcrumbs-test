@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { CircleLoader, ClipLoader } from "react-spinners";
+import {  ClipLoader } from "react-spinners";
 
 const override: CSSProperties = {
   margin: "50px 0",
