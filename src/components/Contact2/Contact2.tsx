@@ -6,7 +6,7 @@ export const loader = async () => {
   console.log("Loader called");
 
   try {
-    const { data } = await api.get("/users/1");
+    const { data } = await api.get("/users/2");
     return data;
   } catch (err: any) {
     console.log("Axios error:", err);
