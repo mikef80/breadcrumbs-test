@@ -8,6 +8,8 @@ import Contact2, {
   loader as contact2Loader,
   ErrorBoundary as ErrorBoundary2,
 } from "./components/Contact2/Contact2";
+import DnDKit from "./components/DnDKit/DnDKit";
+import SortableDnDKit from "./components/SortableDnDKit/SortableDnDKit";
 
 export const routes: RouteObject[] = [
   {
@@ -43,24 +45,22 @@ export const routes: RouteObject[] = [
               },
             ],
           },
+          {
+            path: "dndkit",
+            element: <DnDKit />,
+            handle: {
+              crumb: () => ({ label: "dndkit", path: "dndkit" }),
+            } satisfies CrumbHandle,
+          },
+          {
+            path: "sortabledndkit",
+            element: <SortableDnDKit />,
+            handle: {
+              crumb: () => ({ label: "sortabledndkit", path: "sortabledndkit" }),
+            } satisfies CrumbHandle,
+          },
         ],
       },
-      /* {
-        path: "about",
-        element: <About />,
-        handle: {
-          crumb: () => ({ label: "About", path: "about" }),
-        } satisfies CrumbHandle,
-      },
-      {
-        path: "about/contact",
-        element: <Contact />,
-        loader: contactLoader,
-        handle: {
-          crumb: () => ({ label: "Contact", path: "contact" }),
-        } satisfies CrumbHandle,
-        errorElement: <ErrorBoundary />,
-      }, */
     ],
   },
 ];
